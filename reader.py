@@ -39,11 +39,14 @@ def parse_csv(raw_text, delimiter=",", has_header=True):
         parts  = line.split(delimiter)
         values = [v.strip().strip('"') for v in parts]
 
-    if len(values) < len(headers):
-        values += [""] * (len(headers) - len(values))
-    elif len(values) > len(headers):
-        values = values[:len(headers)]
-        errors.append(f"Row {line_num}: extra columns trimmed")
+        if len(values) < len(headers):
+            values += [""] * (len(headers) - len(values))
+            errors.append(f"Row {line_num}: fewer columns than expected - padded")
+        elif len(values) > len(headers):
+            values = values[:len(headers)]
+            errors.append(f"Row {line_num}: extra columns trimmed")
+
+        rows.append(dict(zip(headers, values)))
 
     return headers, rows, errors
 
