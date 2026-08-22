@@ -1,3 +1,0 @@
-# DataSleuth — Zero external dependencies
-# Requires Python 3.8+
-# Uses only Python standard library: math (Ch 3)
